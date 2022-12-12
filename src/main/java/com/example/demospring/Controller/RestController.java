@@ -45,10 +45,7 @@ public class RestController {
 
     }
 
-    @GetMapping("pp")
-    public Parking findAll() {
-        return parkingRepository.findById(1).orElse(null);
-    }
+
 
     @PostMapping("getPersoParking")
     public List<Personnel> getAllPersonnelByParking(@RequestBody Parking parking) {
@@ -63,8 +60,8 @@ public class RestController {
     }
 
 
-    @GetMapping("GardeJour")
-    public int nombreGardeJour(String adresse) {
+    @GetMapping("GardeJour/{adresse}")
+    public int nombreGardeJour(@PathVariable String adresse) {
         List<Parking> parkings =parkingRepository.findAllByAdresse(adresse);
         List<Personnel> personnels = new ArrayList<Personnel>();
         parkings.stream().forEach(parking -> parking.getZones().forEach(zone -> zone.getGardes().forEach(personnel -> personnels.add(personnel))));
